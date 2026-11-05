@@ -1,0 +1,15 @@
+{
+  "name": "island-engine",
+  "version": "0.1.0",
+  "private": true,
+  "description": "The island format: a manifest and packs for offline, community print places",
+  "type": "module",
+  "scripts": {
+    "test": "node tools/check.mjs",
+    "export:front": "node tools/export-front.mjs"
+  },
+  "devDependencies": {
+    "ajv": "8.17.1",
+    "ajv-formats": "3.0.1"
+  }
+}
