@@ -1,7 +1,7 @@
 {
   "$schema": "../../../../schemas/steps.schema.json",
   "pack": "steps",
-  "id": "novel-global/games",
+  "id": "farm/games",
   "version": "0.1.0",
   "name": "I · W · I · S · H",
   "by": "novel.global",

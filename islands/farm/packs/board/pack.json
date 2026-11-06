@@ -1,7 +1,7 @@
 {
   "$schema": "../../../../schemas/board.schema.json",
   "pack": "board",
-  "id": "novel-global/farm",
+  "id": "farm/paddock",
   "version": "0.1.0",
   "name": "The paddock",
   "by": "novel.global",

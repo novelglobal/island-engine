@@ -14,7 +14,8 @@ It makes a new category out of hardware people already have. A second-hand recei
 |---|---|
 | [spec/](spec/README.md) | The island format: the manifest and the eight kinds of pack, in plain words |
 | [schemas/](schemas/) | The same format as JSON Schemas, which a builder or an engine checks every file against |
-| [islands/novel-global/](islands/novel-global/island.json) | novel.global described as an island: the proof that the format can hold a whole site. With its five games, the first story box (the riparian drain) and the farm |
+| [islands/novel-global/](islands/novel-global/island.json) | novel.global described as an island: the proof that the format can hold a whole site |
+| [islands/farm/](islands/farm/island.json) | A companion beside novel.global, planned only: five short games, each its own receipt, each unlocking a real practice placed by hand on a bare paddock. The first story box (the riparian drain) is here. Built after the library and commons, from blocks alone |
 | [islands/stickers/](islands/stickers/island.json) | A second, tiny island: photo stickers in one step, offline |
 | [islands/shop/](islands/shop/island.json) | A third: a shop's till. The staff make a counter card each morning; the same action prints at the foot of every sale; whoever scans it can pledge |
 | [docs/extraction.md](docs/extraction.md) | How the engine comes out of novel.global's repository, stage by stage |

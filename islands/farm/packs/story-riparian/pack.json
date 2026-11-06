@@ -1,7 +1,7 @@
 {
   "$schema": "../../../../schemas/story.schema.json",
   "pack": "story",
-  "id": "novel-global/riparian-drain",
+  "id": "farm/riparian-drain",
   "version": "0.1.0",
   "name": "The drain that holds",
   "by": "novel.global",
@@ -14,7 +14,7 @@
       "title": "THE DRAIN THAT HOLDS",
       "cover": { "from": "drawn", "cells": 40, "subject": "a kerb grate over a planted pit, roots reaching below it, the street above, after rain" },
       "headline": { "text": "What falls on the street runs to the creek.", "src": "https://www.melbournewater.com.au/", "checked": false },
-      "journey": "novel-global/games",
+      "journey": "farm/games",
       "lives": ["froglet"],
       "brief": "B14",
       "receipts": [

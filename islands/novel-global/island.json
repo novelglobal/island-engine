@@ -31,17 +31,12 @@
     "lives": "packs/lives",
     "sound": "packs/sound",
     "steps": [
-      "packs/steps",
-      "packs/games"
+      "packs/steps"
     ],
     "templates": "packs/templates",
     "style": [
       "packs/style-house"
-    ],
-    "story": [
-      "packs/story-riparian"
-    ],
-    "board": "packs/board-farm"
+    ]
   },
   "printers": [
     {
