@@ -212,6 +212,11 @@
               "star"
             ],
             "default": "escpos"
+          },
+          "till": {
+            "description": "A shop's till prints its sales through this printer, as it always has, and the island adds its foot (a template the keeper picks) under each one",
+            "type": "boolean",
+            "default": false
           }
         }
       },

@@ -58,7 +58,7 @@ Every file is checked against its schema in [`schemas/`](../schemas/). A file th
 | `place` | `centre` [lat, lng], `bbox` [west, south, east, north], `timezone`, and `country`: whose Country it is and the line said for it | yes |
 | `clock` | `"moon"` (the only one so far) | no |
 | `packs` | one entry for each kind: `map`, `lives`, `sound`, `templates`, `board`; `steps`, `style` and `story` may be lists, the first the default | `steps`, `templates`, `style` |
-| `printers` | each printer: `id`, `name`, `model`, `protocol` (`escpos`, which most commercial thermal printers speak, or `star`), `paper` (58 or 80), `dpi`, `dots`, `approval` (`required` or `auto`), `mesh` | yes, one at least |
+| `printers` | each printer: `id`, `name`, `model`, `protocol` (`escpos`, which most commercial thermal printers speak, or `star`), `paper` (58 or 80), `dpi`, `dots`, `approval` (`required` or `auto`), `mesh`, `till` (a shop's till prints its sales through it, and the island adds a foot under each). Only the island's own | yes, one at least |
 | `access` | who may print: `anyone` on the island's Wi-Fi, `code` (a short code printed or said), or `approved` (every piece waits); and how long waiting pieces are kept | yes |
 | `network` | `online` (true or false), `hosted` (its address, when it has one), `hub` (always `https://novel.global`, required online or on a mesh: rule 4), `directory` (listed on novel.global's directory), `mesh` (the radio's channel), `hosts` (every outside host a live source may ask) | yes |
 | `codes` | the code prefix (`DA` on novel.global) and the reserved showcase code (`888`) | no |

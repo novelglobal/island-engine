@@ -14,7 +14,16 @@ To get there, everything novel.global is made of has to be written down as **fil
 
 novel.global's own code is untouched. The moving starts once 1.0 C (the better receipts) is finished and live.
 
-## Yours to decide
+## Decided, 6 November 2026
+
+1. **Home:** the novelglobal GitHub account. This repository (`island-engine`) holds the engine and `island-kit` holds the device. This folder stays on this PC, private, until you say to publish it.
+2. **Licences:** AGPL-3.0 for the engine and the island program, CC BY-SA 4.0 for packs, MIT for the image and build scripts.
+3. **The Pi:** a Raspberry Pi 3 (B, B+ or A+) is the floor, and a Zero 2 W works too. The printer is a second-hand Epson TM-T88V.
+4. **One way:** an island's devices are always open to novel.global, never the other way.
+
+The choices as they were first put are kept below.
+
+## As first put
 
 ### 1. The engine's name and home
 

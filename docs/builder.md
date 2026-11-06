@@ -45,6 +45,17 @@ A new island starts from one of these, then everything can change:
 | **fundraiser** | two: a photograph, a name and an amount promised | a ticket with a code back to the cause |
 | **zine** | any number: a page a step | a long strip folded into a zine |
 | **W.I.S.H.** | four: novel.global's own | the W.I.S.H. receipt |
+| **shop** | a counter card made each morning, and a pledge for whoever scans a sale | the day's action at the foot of every sale (the [shop island](../islands/shop/island.json)) |
+
+## The store
+
+A lite store, like an app store or Steam, but small and made for this one stack. An island is built visually from blocks: a step, a style, a map, a game, a template, a story box. Each is a pack with its maker and licence, and a keeper picks blocks on PACKS, sees them on the phone and receipt previews, and keeps or swaps them.
+
+- **Publish:** a keeper sends a block they made to the store, where it waits for approval, like everything else on novel.global.
+- **Find:** blocks by what they make (a booth, a till's foot, a game, a look), with a receipt printed as the picture of each.
+- **Swap:** one press puts a block on the island; one press takes it off. A swap never touches what the island has already printed.
+- **Free:** no block has a price (rule 2). Each carries its licence, CC BY-SA 4.0 unless its maker chooses another.
+- **Where:** novel.global hosts the store. Its start screen's NETWORK key is the door, and the builder's PACKS page is the same store from inside an island. An offline island takes blocks from a file.
 
 ## Taking it away
 
