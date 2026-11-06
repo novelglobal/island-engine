@@ -53,20 +53,20 @@ To keep it there:
 ## Offline tiles
 
 - The ground novel.global shows now is Esri's imagery, which may be viewed with credit but **not kept offline**. The map pack says so (`"open": false`).
-- An offline island's ground is made from **OpenStreetMap** (open, with credit), drawn in greys, as raster tiles in one PMTiles file. It is made on a computer by the builder, never on the Pi.
+- An offline island's ground is made from **OpenStreetMap** (open, with credit), drawn in greys, as raster tiles in one PMTiles file. It is made on a computer by a build script, never on the Pi.
 - **Size**, for novel.global's area (about 6.6 × 8.3 km): to zoom 17, about 1,300 tiles, 20 MB; to zoom 18, about 5,000 tiles, 75 MB; zoom 19 would be about 300 MB. Zoom 18 is the suggested limit. A 32 GB card holds this many times over.
 - The base already draws its ground with no WebGL, a tile at a time, so old phones can show it.
 
 ## One way, always
 
-novel.global is the hub. Whenever it can reach an island (online, or through the mesh), it may publish to and print on every one of that island's devices: a piece approved on novel.global prints there like a piece of the island's own. The island's own site, hosted or on its Pi, prints only to its own printers. It holds no token for novel.global's printers or another island's, and the format has no place to name one.
+novel.global is the hub. Whenever it can reach an island (online, or through the mesh), it may publish to and print on every one of that island's devices: a piece approved on novel.global prints there like a piece of the island's own. The island's own site, hosted or on its Pi, prints only to its own printers. It holds no token for novel.global's printers, and the format has no place to name one. It prints on another island's printers only as a partner: when it names that island in `partners.out` and that island names it in `partners.in`, which the owner of each chooses on their own switchboard.
 
 In practice:
 
 - **Pairing gives the hub the key.** Pairing by code (`/api/pair` in front, PAIR AN ISLAND) gives novel.global a token for the island's printers. Nothing pairing returns lets the island print anywhere else.
 - **The hub's pieces have passed the hub's approval.** They print without waiting for the island keeper's. The keeper can still turn the printer off at the wall; the island program never refuses the hub while it is on.
 - **Over the mesh**, novel.global's line (`ng`) is heard by every island on the channel; an island's own pieces stay on its own printers.
-- **Its own site** links only to its own island and printers.
+- **Its own site** links only to its own island and printers, and to its partners'.
 
 ## Sync, later
 

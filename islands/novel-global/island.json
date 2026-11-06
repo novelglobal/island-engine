@@ -42,20 +42,16 @@
     {
       "id": "novelglobal",
       "name": "novel.global",
-      "model": "TM-T88V",
+      "profile": "tm-t88v",
       "paper": 80,
-      "dpi": 180,
-      "dots": 512,
       "approval": "required",
       "home": true
     },
     {
       "id": "pickles",
       "name": "Pickles Milk Bar",
-      "model": "TM-T88V",
+      "profile": "tm-t88v",
       "paper": 80,
-      "dpi": 180,
-      "dots": 512,
       "at": [
         -37.782166,
         144.970341
@@ -65,10 +61,8 @@
     {
       "id": "kines",
       "name": "Kines",
-      "model": "TM-T88V",
+      "profile": "tm-t88v",
       "paper": 80,
-      "dpi": 180,
-      "dots": 512,
       "at": [
         -37.7642,
         144.961028
@@ -78,10 +72,8 @@
     {
       "id": "elsie",
       "name": "Coffee Bar Elsie",
-      "model": "TM-T88V",
+      "profile": "tm-t88v",
       "paper": 80,
-      "dpi": 180,
-      "dots": 512,
       "at": [
         -37.765917,
         144.972855
@@ -100,6 +92,7 @@
     "hosted": "https://novel.global",
     "hub": "https://novel.global",
     "directory": true,
+    "feed": true,
     "mesh": {
       "channel": "LongFast",
       "line": "ng"

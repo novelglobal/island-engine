@@ -104,7 +104,7 @@
       "pattern": "^P(\\d+[YMWD])*(T(\\d+[HMS])+)?$"
     },
     "words": {
-      "description": "Words shown or printed, by key. Every one can be changed on the builder",
+      "description": "Words shown or printed, by key. Every one can be changed on the switchboard",
       "type": "object",
       "propertyNames": {
         "pattern": "^[a-z0-9][a-z0-9.-]*$"
@@ -202,6 +202,28 @@
           "type": "array",
           "items": {
             "$ref": "#/$defs/source"
+          }
+        },
+        "parent": {
+          "description": "The pack this one was forked from: the credit chain, printed as a small code at the foot of a receipt",
+          "type": "object",
+          "required": [
+            "id",
+            "version",
+            "by"
+          ],
+          "additionalProperties": false,
+          "properties": {
+            "id": {
+              "$ref": "#/$defs/packId"
+            },
+            "version": {
+              "$ref": "#/$defs/semver"
+            },
+            "by": {
+              "type": "string",
+              "maxLength": 80
+            }
           }
         }
       }

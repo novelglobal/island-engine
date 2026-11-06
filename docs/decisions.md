@@ -10,7 +10,7 @@ To get there, everything novel.global is made of has to be written down as **fil
 - **novel.global, described as an island** ([islands/novel-global/](../islands/novel-global/island.json)). Its 204 lives, 53 things that worked elsewhere, 57 places, the four printers, W.I.S.H.'s own words and the four house styles all fit. If the format couldn't hold novel.global, it wouldn't be ready.
 - **A second, tiny island** ([islands/stickers/](../islands/stickers/island.json)): a sticker booth. One step: three photographs on a count of three, choose a frame, print. No internet, no approval. It proves an island doesn't have to be W.I.S.H.
 - **A checker**: it reads every island and refuses anything broken, such as a receipt asking for something no step collects.
-- **Three plans**: how the engine comes out of novel.global's code a piece at a time ([extraction.md](extraction.md)), how the same engine runs on Cloudflare and on a Pi ([runtimes.md](runtimes.md)), and the island builder, the approval page grown up ([builder.md](builder.md)).
+- **Three plans**: how the engine comes out of novel.global's code a piece at a time ([extraction.md](extraction.md)), how the same engine runs on Cloudflare and on a Pi ([runtimes.md](runtimes.md)), and the switchboard, each island's control panel, the approval page grown up ([switchboard.md](switchboard.md)).
 
 novel.global's own code is untouched. The moving starts once 1.0 C (the better receipts) is finished and live.
 

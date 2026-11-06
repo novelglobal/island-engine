@@ -16,7 +16,7 @@
     "style": ["packs/style"]
   },
   "printers": [
-    { "id": "booth", "name": "booth", "model": "TM-T88V", "paper": 80, "dpi": 180, "dots": 512, "approval": "auto", "home": true }
+    { "id": "booth", "name": "booth", "profile": "tm-t88v", "paper": 80, "approval": "auto", "home": true }
   ],
   "access": { "print": "anyone", "show": "approved", "keepWaiting": "P1D", "keepPrinted": "PT1H" },
   "network": { "online": false, "directory": false, "hosts": [] },

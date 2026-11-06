@@ -25,7 +25,7 @@
     "board": "packs/board"
   },
   "printers": [
-    { "id": "farm", "name": "the farm", "model": "TM-T88V", "paper": 80, "dpi": 180, "dots": 512, "approval": "required", "home": true }
+    { "id": "farm", "name": "the farm", "profile": "tm-t88v", "paper": 80, "approval": "required", "home": true }
   ],
   "access": { "print": "approved", "show": "approved", "keepWaiting": "P7D", "keepPrinted": "P1D" },
   "network": {

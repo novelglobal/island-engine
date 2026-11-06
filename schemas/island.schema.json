@@ -28,6 +28,22 @@
       "type": "string",
       "maxLength": 60
     },
+    "from": {
+      "description": "The island this one started as a copy of (a new island is a mirror of novel.global unless it starts from another). Credit only: nothing is fetched from it",
+      "type": "object",
+      "required": [
+        "id"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "$ref": "urn:island:0.1:common#/$defs/id"
+        },
+        "version": {
+          "$ref": "urn:island:0.1:common#/$defs/semver"
+        }
+      }
+    },
     "about": {
       "type": "object",
       "additionalProperties": false,
@@ -152,10 +168,7 @@
         "type": "object",
         "required": [
           "id",
-          "name",
-          "paper",
-          "dpi",
-          "dots"
+          "name"
         ],
         "additionalProperties": false,
         "properties": {
@@ -166,6 +179,10 @@
             "type": "string",
             "maxLength": 60
           },
+          "profile": {
+            "description": "The printer model, as a profile in profiles/. Its paper, dpi, dots, cutter and darkness come from there unless set here",
+            "$ref": "urn:island:0.1:common#/$defs/id"
+          },
           "model": {
             "type": "string",
             "maxLength": 40
@@ -174,7 +191,8 @@
             "enum": [
               58,
               80
-            ]
+            ],
+            "description": "Which of its profile's papers is loaded, or the paper by hand"
           },
           "dpi": {
             "type": "integer",
@@ -217,8 +235,28 @@
             "description": "A shop's till prints its sales through this printer, as it always has, and the island adds its foot (a template the keeper picks) under each one",
             "type": "boolean",
             "default": false
+          },
+          "darkness": {
+            "description": "How dark it prints, in percent of the maker's normal, within its profile",
+            "type": "integer",
+            "minimum": 10,
+            "maximum": 200
           }
-        }
+        },
+        "anyOf": [
+          {
+            "required": [
+              "profile"
+            ]
+          },
+          {
+            "required": [
+              "paper",
+              "dpi",
+              "dots"
+            ]
+          }
+        ]
       },
       "description": "This island's own printers, and only these: a site prints to nothing else"
     },
@@ -253,6 +291,65 @@
         }
       }
     },
+    "people": {
+      "description": "Staff keys besides the owner's, each able to approve, make or both. The keys themselves are never in the file",
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "id",
+          "can"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "$ref": "urn:island:0.1:common#/$defs/id"
+          },
+          "name": {
+            "type": "string",
+            "maxLength": 60
+          },
+          "can": {
+            "type": "array",
+            "minItems": 1,
+            "uniqueItems": true,
+            "items": {
+              "enum": [
+                "approve",
+                "make"
+              ]
+            }
+          }
+        }
+      }
+    },
+    "partners": {
+      "description": "Other islands, by id: those this island lets print on its printers (in), and those it prints to (out). An island prints to another only when that island names it in its own in. novel.global is never a partner: it can always reach an island, and an island never reaches it",
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "in": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "$ref": "urn:island:0.1:common#/$defs/id",
+            "not": {
+              "const": "novel-global"
+            }
+          }
+        },
+        "out": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "$ref": "urn:island:0.1:common#/$defs/id",
+            "not": {
+              "const": "novel-global"
+            }
+          }
+        }
+      }
+    },
     "network": {
       "type": "object",
       "required": [
@@ -268,6 +365,11 @@
         },
         "directory": {
           "description": "Listed on novel.global's directory of islands",
+          "type": "boolean",
+          "default": false
+        },
+        "feed": {
+          "description": "Shares what it prints, once approved, to the novel.global feed",
           "type": "boolean",
           "default": false
         },
@@ -292,7 +394,7 @@
           }
         },
         "hub": {
-          "description": "One way, always: novel.global may publish to and print on every printer and mesh node of this island, whenever it can reach it. The island's own site prints only to its own printers, and never reaches novel.global's devices or another island's. Required on any island with a way in (online, or a mesh)",
+          "description": "One way, always: novel.global may publish to and print on every printer and mesh node of this island, whenever it can reach it. The island's own site prints only to its own printers, and never reaches novel.global's devices, and reaches another island's only as a partner it lets in. Required on any island with a way in (online, or a mesh)",
           "const": "https://novel.global"
         }
       },

@@ -12,6 +12,8 @@ islands/<island>/
     ├── steps/pack.json    the journey, any number of steps
     ├── style-*/pack.json  how a receipt looks (1.0 C's style pack)
     └── templates/pack.json  what a receipt holds, block by block
+
+profiles/<model>.json      a printer model, shared by every island
 ```
 
 Every file is checked against its schema in [`schemas/`](../schemas/). A file that fails is refused whole, never half loaded.
@@ -28,6 +30,8 @@ Every file is checked against its schema in [`schemas/`](../schemas/). A file th
 | **piece** | What one person makes in one journey: the values of every field. A template prints a piece |
 | **template** | A receipt's blocks in order, each filled from the piece |
 | **style** | How the blocks look on paper and on screen: fonts, sizes, photo filter, frame |
+| **profile** | One printer model as data: its papers, the dots it prints across, its cutter, speed and darkness. Every block renders to the profile of the printer it goes to |
+| **owner** | Whoever holds the island's first slip and its key. The format calls them the keeper. They control everything on the island's switchboard |
 | **shell** | The client's own look and motion (novel.global's is the aura). Code, so installed by the island's keeper only; never in a pack |
 
 ## The rules
@@ -47,7 +51,7 @@ Every file is checked against its schema in [`schemas/`](../schemas/). A file th
 1. **It can be found and visited.** Anyone at its printer can take part; a code opens more, never everything.
 2. **Nothing is behind a paywall.** The format has no place for a price.
 3. **Every journey ends in a direct action.** The last step of every steps pack prints or pledges, and every receipt carries a code to scan, a way on. The checker refuses an island without them.
-4. **Its devices are always open to novel.global, one way.** novel.global may publish to and print on every printer and mesh node of an island it can reach, even when the island has its own site. The island's own site prints only to its own printers, never to novel.global's or another island's. An island online or on a mesh names novel.global as its `network.hub`; the checker refuses one that does not.
+4. **Its devices are always open to novel.global, one way.** novel.global may publish to and print on every printer and mesh node of an island it can reach, even when the island has its own site. The island's own site prints only to its own printers, never to novel.global's, and to another island's only when that island lets it in as a partner. An island online or on a mesh names novel.global as its `network.hub`; the checker refuses one that does not.
 
 ## The manifest: `island.json`
 
@@ -58,16 +62,19 @@ Every file is checked against its schema in [`schemas/`](../schemas/). A file th
 | `place` | `centre` [lat, lng], `bbox` [west, south, east, north], `timezone`, and `country`: whose Country it is and the line said for it | yes |
 | `clock` | `"moon"` (the only one so far) | no |
 | `packs` | one entry for each kind: `map`, `lives`, `sound`, `templates`, `board`; `steps`, `style` and `story` may be lists, the first the default | `steps`, `templates`, `style` |
-| `printers` | each printer: `id`, `name`, `model`, `protocol` (`escpos`, which most commercial thermal printers speak, or `star`), `paper` (58 or 80), `dpi`, `dots`, `approval` (`required` or `auto`), `mesh`, `till` (a shop's till prints its sales through it, and the island adds a foot under each). Only the island's own | yes, one at least |
+| `from` | the island it started as a copy of, and its version: a new island is a mirror of novel.global unless it starts from another. Credit only; nothing is fetched | no |
+| `printers` | each printer: `id`, `name`, its `profile` (the model, in `profiles/`), `paper` (which of its profile's papers is loaded), `darkness` (in percent, within its profile), `approval` (`required` or `auto`), `mesh`, `till` (a shop's till prints its sales through it, and the island adds a foot under each). A printer with no profile gives `protocol`, `paper`, `dpi` and `dots` by hand. Only the island's own | yes, one at least |
 | `access` | who may print: `anyone` on the island's Wi-Fi, `code` (a short code printed or said), or `approved` (every piece waits); and how long waiting pieces are kept | yes |
-| `network` | `online` (true or false), `hosted` (its address, when it has one), `hub` (always `https://novel.global`, required online or on a mesh: rule 4), `directory` (listed on novel.global's directory), `mesh` (the radio's channel), `hosts` (every outside host a live source may ask) | yes |
+| `people` | staff keys besides the owner's, each with what it `can` do: `approve`, `make`, or both. The keys themselves are never in the file | no |
+| `partners` | other islands by id: those it lets print here (`in`), and those it prints to (`out`). It prints to another island only when that island names it in its own `in`. novel.global is never a partner (rule 4) | no |
+| `network` | `online` (true or false), `hosted` (its address, when it has one), `hub` (always `https://novel.global`, required online or on a mesh: rule 4), `directory` (listed on novel.global's directory), `feed` (shares what it prints, once approved, to the novel.global feed), `mesh` (the radio's channel), `hosts` (every outside host a live source may ask) | yes |
 | `codes` | the code prefix (`DA` on novel.global) and the reserved showcase code (`888`) | no |
 | `client` | the `shell` (`plain` by default; `aura` is novel.global's own) and the screen's `start` step | no |
 | `about` | a link and a few words for the directory | no |
 
 ## The packs
 
-Every `pack.json` starts the same: `pack` (its kind), `id`, `version`, `name`, `by`, `licence`, `engine` (the format it needs, `"^0.1"`). The rest depends on the kind.
+Every `pack.json` starts the same: `pack` (its kind), `id`, `version`, `name`, `by`, `licence`, `engine` (the format it needs, `"^0.1"`), and `parent` (`id`, `version`, `by`) when it is a fork. The parents, one after another, are its credit chain, printed as a small code at the foot of a receipt. The rest depends on the kind.
 
 ### map: the ground and its cells
 
@@ -104,7 +111,7 @@ Every `pack.json` starts the same: `pack` (its kind), `id`, `version`, `name`, `
 
 ### steps: the journey
 
-A journey is **any number of steps**, in order. A step has an `id`, its `name`, an `icon`, its `words` (the tab, the question, a line of help, all editable on the builder) and its `fields`.
+A journey is **any number of steps**, in order. A step has an `id`, its `name`, an `icon`, its `words` (the tab, the question, a line of help, all editable on the switchboard) and its `fields`.
 
 A field has an `id`, a `type` and that type's settings:
 
@@ -158,9 +165,20 @@ A story box is a journey already played: a `title`, a `cover` (drawn, or made fr
 
 - **`ground`**: a real piece of land picked from the map's imagery for each new farm (`satellite`, with `pick`: the land use, the area, its size), or a file. It is redrawn in flat `tones` of even opacity, never a gradient, in `cells` pixels across, with paper `grain` and ragged `edge`s.
 - **`farm`**: what is kept and by what. With `keep: "place"`, a farm is one real piece of ground and everything placed on it stays with it; a `reroll` deals new ground as a new, bare farm, and the old one keeps what it has.
-- **`balance`**: the share left to nature it grows towards (novel.global's is half).
+- **`balance`**: the share left to nature it grows towards (the farm island's is half).
 - **`first`**: optional, a wider map shown on a first visit (farmland and habitat).
 - **`stages`**: each one drawn in line and dot (`draw`: `as` a line, dots, an area, water, a ring or strokes, `on` a part of the ground found from the ground itself), unlocked `by` events (`step:<id>`, `story:<id>`, `poster`, `song`, `download`, `box`, `print`, `visit`, `moon`) once the stages `after` it are done. A stage is put down by the person where they choose (`place: "hand"`, snapping to the part of the ground it fits near where it is put), or by the engine (`self`). Once placed, its `acts` work on the ground around it, within its `reach`: water spreads or holds, banks thicken, grass grows, birds and frogs arrive. This is shown only as the ground changing, never as a stat, an icon or a word. It names what flows on from it (`then`), the share it gives back to `nature`, and the real work it stands for (`src`).
+
+## Printer profiles
+
+A printer model is a profile in [`profiles/`](../profiles/), shared by every island: `id`, `name`, `protocol`, `dpi`, `papers` (each width it takes and the `dots` it prints across on it), `cutter` (`full`, `partial` or `none`), `speed` (millimetres a second), `darkness` (`min`, `max` and `default`, in percent of the maker's normal), and how it is found: `usb` ids, a network `port`. Supporting another model is a new profile, never a change to the engine.
+
+| Profile | Paper | Dots | dpi |
+|---|---|---|---|
+| `tm-t88v` | 80 | 512 | 180 |
+| `tm-t20ii` | 80 | 576 | 203 |
+| `generic-80` | 80 | 576 | 203 |
+| `generic-58` | 58 | 384 | 203 |
 
 ## What is not in a pack
 

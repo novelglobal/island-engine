@@ -16,6 +16,7 @@ let bad = 0;
 const fail = (where, msg) => { bad++; console.log(`  ✗ ${where}: ${msg}`); };
 const read = p => JSON.parse(fs.readFileSync(p, 'utf8'));
 const check = (where, ref, data) => { const v = schema(ref); if (!v(data)) v.errors.slice(0, 8).forEach(e => fail(where, `${e.instancePath || '/'} ${e.message}${e.params && e.params.additionalProperty ? ' (' + e.params.additionalProperty + ')' : ''}`)); };
+const profiles = new Map();
 const exists = (where, dir, rel) => { if (!fs.existsSync(path.join(dir, rel))) { fail(where, `missing file ${rel}`); return false; } return true; };
 
 function island(dir) {
@@ -34,6 +35,7 @@ function island(dir) {
     files(p, pd, where);
   }
   agree(name, m, packs);
+  return m;
 }
 
 /* the files a pack names: there, and their rows in shape */
@@ -133,9 +135,37 @@ function agree(name, m, packs) {
   /* an offline island asks nothing outside */
   if (!m.network.online && (m.network.hosts || []).length) fail(name, 'an offline island lists outside hosts');
   const ids = m.printers.map(p => p.id); if (new Set(ids).size !== ids.length) fail(name, 'two printers share an id');
+  /* each printer: its profile, and a paper and darkness that profile prints */
+  for (const p of m.printers) {
+    if (!p.profile) continue;
+    const f = profiles.get(p.profile); if (!f) { fail(name, `printer ${p.id}: no profile ${p.profile}`); continue; }
+    const paper = f.papers.find(x => x.paper === (p.paper || f.papers[0].paper));
+    if (!paper) fail(name, `printer ${p.id}: ${f.name} takes no ${p.paper} mm paper`);
+    else if (p.dots && p.dots !== paper.dots) fail(name, `printer ${p.id}: ${f.name} prints ${paper.dots} dots across ${paper.paper} mm, not ${p.dots}`);
+    if (p.dpi && p.dpi !== f.dpi) fail(name, `printer ${p.id}: ${f.name} is ${f.dpi} dpi, not ${p.dpi}`);
+    if (p.darkness && f.darkness && (p.darkness < f.darkness.min || p.darkness > f.darkness.max)) fail(name, `printer ${p.id}: darkness ${p.darkness} is outside ${f.darkness.min} to ${f.darkness.max}`);
+  }
+  if (m.from && m.from.id === m.id) fail(name, 'an island cannot start as a copy of itself');
+  for (const k of ['in', 'out']) if (((m.partners || {})[k] || []).includes(m.id)) fail(name, `partners.${k} names the island itself`);
+  for (const k of ['in', 'out']) if (((m.partners || {})[k] || []).includes('novel-global')) fail(name, `partners.${k} names novel.global, which is never a partner: it can always reach an island, and an island never reaches it`);
+}
+
+/* the printer profiles */
+for (const f of fs.readdirSync(path.join(root, 'profiles'))) {
+  const p = read(path.join(root, 'profiles', f)), where = `profiles/${f}`;
+  check(where, 'urn:island:0.1:profile', p);
+  if (p.id + '.json' !== f) fail(where, `its id is ${p.id}`);
+  if (p.darkness && (p.darkness.default < p.darkness.min || p.darkness.default > p.darkness.max)) fail(where, 'its darkness starts outside its range');
+  profiles.set(p.id, p);
 }
 
 const dirs = process.argv.slice(2).length ? process.argv.slice(2) : fs.readdirSync(path.join(root, 'islands')).map(d => path.join(root, 'islands', d));
-for (const d of dirs) island(path.resolve(d));
+const all = new Map();
+for (const d of dirs) { const m = island(path.resolve(d)); all.set(m.id, m); }
+/* partners: an island prints to another only when that one lets it in */
+for (const m of all.values()) for (const o of (m.partners || {}).out || []) {
+  const t = all.get(o);
+  if (t && !((t.partners || {}).in || []).includes(m.id)) fail(m.id, `prints to ${o}, which does not let it in (partners.in)`);
+}
 console.log(bad ? `\n${bad} problem${bad > 1 ? 's' : ''}` : '\nall islands check');
 process.exit(bad ? 1 : 0);

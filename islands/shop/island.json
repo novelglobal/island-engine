@@ -34,10 +34,8 @@
     {
       "id": "till",
       "name": "till",
-      "model": "TM-T88V",
+      "profile": "tm-t88v",
       "paper": 80,
-      "dpi": 180,
-      "dots": 512,
       "approval": "auto",
       "home": true,
       "till": true
@@ -49,6 +47,10 @@
     "keepWaiting": "P7D",
     "keepPrinted": "P1D"
   },
+  "people": [
+    { "id": "floor", "name": "floor staff", "can": ["make"] },
+    { "id": "manager", "name": "manager", "can": ["make", "approve"] }
+  ],
   "network": {
     "online": true,
     "hub": "https://novel.global",
