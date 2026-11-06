@@ -22,7 +22,7 @@ Every file is checked against its schema in [`schemas/`](../schemas/). A file th
 |---|---|
 | **island** | One community's print place: a manifest, its packs, its printers |
 | **manifest** | `island.json`: the name, the place, which packs, which printers, who may print |
-| **pack** | A folder with a `pack.json` and the files it names. Six kinds: `map`, `lives`, `sound`, `steps`, `style`, `templates` |
+| **pack** | A folder with a `pack.json` and the files it names. Eight kinds: `map`, `lives`, `sound`, `steps`, `style`, `templates`, `story`, `board` |
 | **cell** | One thing on the map: a point with a kind, a name and a few words. Every layer, whatever went in, comes out as cells |
 | **step** | One moment of the journey, with the fields it asks for |
 | **piece** | What one person makes in one journey: the values of every field. A template prints a piece |
@@ -42,6 +42,12 @@ Every file is checked against its schema in [`schemas/`](../schemas/). A file th
 8. **Printed codes outlive releases.** The signal formats (`#x=` links and `ng:` mesh lines) belong to the engine, not to a pack, and stay backwards compatible.
 9. **Privacy.** No pack can add a tracker, an analytics call or a host the manifest does not list in `network.hosts`.
 
+## Every island, three rules
+
+1. **It can be found and visited.** Anyone at its printer can take part; a code opens more, never everything.
+2. **Nothing is behind a paywall.** The format has no place for a price.
+3. **Every journey ends in a direct action.** The last step of every steps pack prints or pledges, and every receipt carries a code to scan, a way on. The checker refuses an island without them.
+
 ## The manifest: `island.json`
 
 | Field | What it holds | Required |
@@ -50,8 +56,8 @@ Every file is checked against its schema in [`schemas/`](../schemas/). A file th
 | `id`, `name` | the island's id and its name as printed | yes |
 | `place` | `centre` [lat, lng], `bbox` [west, south, east, north], `timezone`, and `country`: whose Country it is and the line said for it | yes |
 | `clock` | `"moon"` (the only one so far) | no |
-| `packs` | one entry for each kind: `map`, `lives`, `sound`, `steps`, `templates`; `style` is a list, the first the default | `steps`, `templates`, `style` |
-| `printers` | each printer: `id`, `name`, `model`, `paper` (58 or 80), `dpi`, `dots`, `approval` (`required` or `auto`), `mesh` | yes, one at least |
+| `packs` | one entry for each kind: `map`, `lives`, `sound`, `templates`, `board`; `steps`, `style` and `story` may be lists, the first the default | `steps`, `templates`, `style` |
+| `printers` | each printer: `id`, `name`, `model`, `protocol` (`escpos`, which most commercial thermal printers speak, or `star`), `paper` (58 or 80), `dpi`, `dots`, `approval` (`required` or `auto`), `mesh` | yes, one at least |
 | `access` | who may print: `anyone` on the island's Wi-Fi, `code` (a short code printed or said), or `approved` (every piece waits); and how long waiting pieces are kept | yes |
 | `network` | `online` (true or false), `hosted` (its address, when it has one), `directory` (listed on novel.global's directory), `mesh` (the radio's channel), `hosts` (every outside host a live source may ask) | yes |
 | `codes` | the code prefix (`DA` on novel.global) and the reserved showcase code (`888`) | no |
@@ -112,6 +118,12 @@ A field has an `id`, a `type` and that type's settings:
 | `art` | how the picture is drawn: the photograph, pixels, a net, a sign, or a style's own |
 | `frame` | a frame from the chosen style |
 | `print` | which printer and which template; or keep it, pass it on as a link, send it by mesh |
+| `deal` | cards dealt face down from the packs (lives, cases, readings, places, someone's catch); flip them, keep one or more |
+| `dial` | a drag between two states (the paddock now, and grown back) |
+| `combine` | two cards made into a thing to make (a grate, a planting, a poster, a song, a meeting), with an optional wild card from someone else on the island |
+| `strings` | strings pulled from the thing to who helps: groups, places, printers, people |
+
+A journey's `run` says how cards are dealt: each run its own hand, or one hand for everyone on the island each moon quarter (`moon`). Any step can print its own receipt, so a journey can be five small games, each with its own paper.
 
 A step can be `optional`. A step can name a `phase`, a word that groups steps (novel.global groups its four into NOTICED, RESPONSE and DIRECT ACTION). The last step holds a `print` field, or the journey ends without paper.
 
@@ -136,6 +148,17 @@ A template has an `id`, a `name`, the `paper` it fits, and **blocks** in order. 
 `photo` · `heading` · `text` · `lines` · `data` · `art` · `image` (a file in the pack) · `marks` · `rule` · `space` · `qr` (a link or the mesh line) · `code` · `moon` (the phase) · `cut`
 
 How each block looks comes from the style. A template can also give a `mesh` line, the piece as one `ng:` line of 200 bytes at most.
+
+### story: finished games on the shelf
+
+A story box is a journey already played: a `title`, a `cover` (drawn, or made from a photograph by the pixel maker), a `headline` with its `src` (and `checked`, false until someone has checked it), the `journey` it was made in, and **up to five receipts**, each a template filled with what was made (`fill`, by piece path). Opened, the receipts come out one by one, and it ends on the way to play your own. A box can name the board stages it `unlocks`.
+
+### board: the ground progress grows on
+
+- **`ground`**: a real piece of land picked from the map's imagery each visit (`satellite`, with `pick`: the land use, the area, its size), or a file. It is redrawn in flat `tones` of even opacity, never a gradient, in `cells` pixels across, with paper `grain` and ragged `edge`s.
+- **`balance`**: the share left to nature it grows towards (novel.global's is half).
+- **`first`**: optional, a wider map shown on a first visit (farmland and habitat).
+- **`stages`**: each one drawn in line and dot (`draw`: `as` a line, dots, an area, water, a ring or strokes, `on` a part of the ground found from the ground itself), unlocked `by` events (`step:<id>`, `story:<id>`, `poster`, `song`, `download`, `box`, `print`, `visit`, `moon`) once the stages `after` it are done. It names what flows on from it (`then`), the share it gives back to `nature`, and the real work it stands for (`src`).
 
 ## What is not in a pack
 

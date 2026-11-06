@@ -10,44 +10,373 @@
   "about": "The W.I.S.H. receipt, the CONNECTION receipt and the blank quick print, as they print today.",
   "templates": [
     {
-      "id": "wish", "name": "W.I.S.H.", "paper": [80, 58],
-      "blocks": [
-        { "type": "art", "from": "make.art", "height": "half" },
-        { "type": "heading", "from": "notice.say", "size": "head" },
-        { "type": "lines", "from": "wish.lines", "size": "body", "when": "wish.lines" },
-        { "type": "marks", "from": "make.marks", "when": "make.marks" },
-        { "type": "data", "from": "notice.catch", "size": "small" },
-        { "type": "rule", "dots": 2 },
-        { "type": "text", "from": "island.country", "size": "small", "align": "centre" },
-        { "type": "moon", "size": "small", "align": "centre" },
-        { "type": "qr", "qr": "link" },
-        { "type": "code", "align": "centre" },
-        { "type": "cut" }
+      "id": "wish",
+      "name": "W.I.S.H.",
+      "paper": [
+        80,
+        58
       ],
-      "mesh": { "fields": ["notice.place", "notice.catch", "make.marks", "notice.say", "wish.lines.w", "wish.lines.i", "wish.lines.s", "wish.lines.h", "island.code"] }
+      "blocks": [
+        {
+          "type": "art",
+          "from": "make.art",
+          "height": "half"
+        },
+        {
+          "type": "heading",
+          "from": "notice.say",
+          "size": "head"
+        },
+        {
+          "type": "lines",
+          "from": "wish.lines",
+          "size": "body",
+          "when": "wish.lines"
+        },
+        {
+          "type": "marks",
+          "from": "make.marks",
+          "when": "make.marks"
+        },
+        {
+          "type": "data",
+          "from": "notice.catch",
+          "size": "small"
+        },
+        {
+          "type": "rule",
+          "dots": 2
+        },
+        {
+          "type": "text",
+          "from": "island.country",
+          "size": "small",
+          "align": "centre"
+        },
+        {
+          "type": "moon",
+          "size": "small",
+          "align": "centre"
+        },
+        {
+          "type": "qr",
+          "qr": "link"
+        },
+        {
+          "type": "code",
+          "align": "centre"
+        },
+        {
+          "type": "cut"
+        }
+      ],
+      "mesh": {
+        "fields": [
+          "notice.place",
+          "notice.catch",
+          "make.marks",
+          "notice.say",
+          "wish.lines.w",
+          "wish.lines.i",
+          "wish.lines.s",
+          "wish.lines.h",
+          "island.code"
+        ]
+      }
     },
     {
-      "id": "connection", "name": "CONNECTION", "paper": [80, 58],
+      "id": "connection",
+      "name": "CONNECTION",
+      "paper": [
+        80,
+        58
+      ],
       "blocks": [
-        { "type": "heading", "from": "'CONNECTION'", "size": "head" },
-        { "type": "code" },
-        { "type": "text", "from": "read.threat", "label": "signal" },
-        { "type": "text", "from": "read.place", "label": "place" },
-        { "type": "text", "from": "read.tied", "label": "tied", "when": "read.tied" },
-        { "type": "text", "from": "read.join", "label": "join", "when": "read.join" },
-        { "type": "text", "from": "wish.lines.h", "label": "next" },
-        { "type": "qr", "qr": "link" },
-        { "type": "cut" }
+        {
+          "type": "heading",
+          "from": "'CONNECTION'",
+          "size": "head"
+        },
+        {
+          "type": "code"
+        },
+        {
+          "type": "text",
+          "from": "read.threat",
+          "label": "signal"
+        },
+        {
+          "type": "text",
+          "from": "read.place",
+          "label": "place"
+        },
+        {
+          "type": "text",
+          "from": "read.tied",
+          "label": "tied",
+          "when": "read.tied"
+        },
+        {
+          "type": "text",
+          "from": "read.join",
+          "label": "join",
+          "when": "read.join"
+        },
+        {
+          "type": "text",
+          "from": "wish.lines.h",
+          "label": "next"
+        },
+        {
+          "type": "qr",
+          "qr": "link"
+        },
+        {
+          "type": "cut"
+        }
       ]
     },
     {
-      "id": "quick", "name": "QUICK", "paper": [80],
+      "id": "quick",
+      "name": "QUICK",
+      "paper": [
+        80
+      ],
       "blocks": [
-        { "type": "photo", "from": "notice.photo", "when": "notice.photo", "height": "half" },
-        { "type": "text", "from": "notice.say", "size": "body" },
-        { "type": "space", "dots": 40 },
-        { "type": "cut" }
+        {
+          "type": "photo",
+          "from": "notice.photo",
+          "when": "notice.photo",
+          "height": "half"
+        },
+        {
+          "type": "text",
+          "from": "notice.say",
+          "size": "body"
+        },
+        {
+          "type": "space",
+          "dots": 40
+        },
+        {
+          "type": "qr",
+          "qr": "link"
+        },
+        {
+          "type": "cut"
+        }
       ]
+    },
+    {
+      "id": "game-i",
+      "name": "I",
+      "paper": [
+        80,
+        58
+      ],
+      "blocks": [
+        {
+          "type": "heading",
+          "from": "'I'",
+          "size": "head"
+        },
+        {
+          "type": "data",
+          "from": "i-catch.things",
+          "size": "small"
+        },
+        {
+          "type": "text",
+          "from": "i-catch.intention",
+          "size": "head"
+        },
+        {
+          "type": "moon",
+          "size": "small",
+          "align": "centre"
+        },
+        {
+          "type": "qr",
+          "qr": "link"
+        },
+        {
+          "type": "code",
+          "align": "centre"
+        },
+        {
+          "type": "cut"
+        }
+      ]
+    },
+    {
+      "id": "game-w",
+      "name": "W",
+      "paper": [
+        80,
+        58
+      ],
+      "blocks": [
+        {
+          "type": "heading",
+          "from": "'W'",
+          "size": "head"
+        },
+        {
+          "type": "text",
+          "from": "w-draw.fact",
+          "size": "body"
+        },
+        {
+          "type": "rule",
+          "dots": 2
+        },
+        {
+          "type": "moon",
+          "size": "small",
+          "align": "centre"
+        },
+        {
+          "type": "qr",
+          "qr": "link"
+        },
+        {
+          "type": "code",
+          "align": "centre"
+        },
+        {
+          "type": "cut"
+        }
+      ]
+    },
+    {
+      "id": "game-great",
+      "name": "I",
+      "paper": [
+        80,
+        58
+      ],
+      "blocks": [
+        {
+          "type": "heading",
+          "from": "'I'",
+          "size": "head"
+        },
+        {
+          "type": "art",
+          "from": "i-dial.future",
+          "height": "half"
+        },
+        {
+          "type": "moon",
+          "size": "small",
+          "align": "centre"
+        },
+        {
+          "type": "qr",
+          "qr": "link"
+        },
+        {
+          "type": "code",
+          "align": "centre"
+        },
+        {
+          "type": "cut"
+        }
+      ]
+    },
+    {
+      "id": "game-s",
+      "name": "S",
+      "paper": [
+        80,
+        58
+      ],
+      "blocks": [
+        {
+          "type": "heading",
+          "from": "'S'",
+          "size": "head"
+        },
+        {
+          "type": "art",
+          "from": "s-craft.cover",
+          "height": "square",
+          "when": "s-craft.cover"
+        },
+        {
+          "type": "text",
+          "from": "s-craft.thing",
+          "size": "body"
+        },
+        {
+          "type": "moon",
+          "size": "small",
+          "align": "centre"
+        },
+        {
+          "type": "qr",
+          "qr": "link"
+        },
+        {
+          "type": "code",
+          "align": "centre"
+        },
+        {
+          "type": "cut"
+        }
+      ]
+    },
+    {
+      "id": "game-h",
+      "name": "H",
+      "paper": [
+        80,
+        58
+      ],
+      "blocks": [
+        {
+          "type": "heading",
+          "from": "'H'",
+          "size": "head"
+        },
+        {
+          "type": "text",
+          "from": "i-catch.intention",
+          "size": "body"
+        },
+        {
+          "type": "lines",
+          "from": "h-strings.who",
+          "size": "body"
+        },
+        {
+          "type": "moon",
+          "size": "small",
+          "align": "centre"
+        },
+        {
+          "type": "qr",
+          "qr": "link"
+        },
+        {
+          "type": "code",
+          "align": "centre"
+        },
+        {
+          "type": "cut"
+        }
+      ],
+      "mesh": {
+        "fields": [
+          "i-catch.place",
+          "i-catch.things",
+          "i-catch.intention",
+          "w-draw.fact",
+          "s-craft.thing",
+          "h-strings.who",
+          "island.code"
+        ]
+      }
     }
   ]
 }

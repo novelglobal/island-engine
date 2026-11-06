@@ -9,13 +9,41 @@
   "engine": "^0.1",
   "templates": [
     {
-      "id": "strip", "name": "STRIP", "paper": [80, 58],
+      "id": "strip",
+      "name": "STRIP",
+      "paper": [
+        80,
+        58
+      ],
       "blocks": [
-        { "type": "photo", "from": "booth.photo", "height": "square" },
-        { "type": "space", "dots": 16 },
-        { "type": "text", "from": "island.name", "size": "small", "align": "centre" },
-        { "type": "moon", "size": "small", "align": "centre" },
-        { "type": "cut" }
+        {
+          "type": "photo",
+          "from": "booth.photo",
+          "height": "square"
+        },
+        {
+          "type": "space",
+          "dots": 16
+        },
+        {
+          "type": "text",
+          "from": "island.name",
+          "size": "small",
+          "align": "centre"
+        },
+        {
+          "type": "moon",
+          "size": "small",
+          "align": "centre"
+        },
+        {
+          "type": "qr",
+          "qr": "link",
+          "when": "booth.photo"
+        },
+        {
+          "type": "cut"
+        }
       ]
     }
   ]

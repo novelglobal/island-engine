@@ -3,96 +3,323 @@
   "$id": "urn:island:0.1:island",
   "title": "An island's manifest (island.json)",
   "type": "object",
-  "required": ["format", "id", "name", "place", "packs", "printers", "access", "network"],
+  "required": [
+    "format",
+    "id",
+    "name",
+    "place",
+    "packs",
+    "printers",
+    "access",
+    "network"
+  ],
   "additionalProperties": false,
   "properties": {
-    "$schema": { "type": "string" },
-    "format": { "const": "island/0.1" },
-    "id": { "$ref": "urn:island:0.1:common#/$defs/id" },
-    "name": { "type": "string", "maxLength": 60 },
-    "about": {
-      "type": "object", "additionalProperties": false,
-      "properties": { "line": { "type": "string", "maxLength": 140 }, "url": { "$ref": "urn:island:0.1:common#/$defs/url" } }
+    "$schema": {
+      "type": "string"
     },
-    "place": {
-      "type": "object", "required": ["centre", "bbox"], "additionalProperties": false,
+    "format": {
+      "const": "island/0.1"
+    },
+    "id": {
+      "$ref": "urn:island:0.1:common#/$defs/id"
+    },
+    "name": {
+      "type": "string",
+      "maxLength": 60
+    },
+    "about": {
+      "type": "object",
+      "additionalProperties": false,
       "properties": {
-        "name": { "type": "string", "maxLength": 80 },
-        "centre": { "$ref": "urn:island:0.1:common#/$defs/latlng" },
-        "bbox": { "$ref": "urn:island:0.1:common#/$defs/bbox" },
-        "timezone": { "type": "string", "pattern": "^[A-Za-z_]+(/[A-Za-z0-9_+-]+)*$" },
-        "country": {
-          "description": "Whose Country it is, and the line said for it",
-          "type": "object", "required": ["name"], "additionalProperties": false,
-          "properties": { "name": { "type": "string", "maxLength": 80 }, "line": { "type": "string", "maxLength": 120 } }
+        "line": {
+          "type": "string",
+          "maxLength": 140
+        },
+        "url": {
+          "$ref": "urn:island:0.1:common#/$defs/url"
         }
       }
     },
-    "clock": { "enum": ["moon"], "default": "moon" },
-    "packs": {
-      "type": "object", "required": ["steps", "templates", "style"], "additionalProperties": false,
+    "place": {
+      "type": "object",
+      "required": [
+        "centre",
+        "bbox"
+      ],
+      "additionalProperties": false,
       "properties": {
-        "map": { "$ref": "urn:island:0.1:common#/$defs/packRef" },
-        "lives": { "$ref": "urn:island:0.1:common#/$defs/packRef" },
-        "sound": { "$ref": "urn:island:0.1:common#/$defs/packRef" },
-        "steps": { "$ref": "urn:island:0.1:common#/$defs/packRef" },
-        "templates": { "$ref": "urn:island:0.1:common#/$defs/packRef" },
-        "style": { "description": "The first is the default", "type": "array", "minItems": 1, "items": { "$ref": "urn:island:0.1:common#/$defs/packRef" } }
+        "name": {
+          "type": "string",
+          "maxLength": 80
+        },
+        "centre": {
+          "$ref": "urn:island:0.1:common#/$defs/latlng"
+        },
+        "bbox": {
+          "$ref": "urn:island:0.1:common#/$defs/bbox"
+        },
+        "timezone": {
+          "type": "string",
+          "pattern": "^[A-Za-z_]+(/[A-Za-z0-9_+-]+)*$"
+        },
+        "country": {
+          "description": "Whose Country it is, and the line said for it",
+          "type": "object",
+          "required": [
+            "name"
+          ],
+          "additionalProperties": false,
+          "properties": {
+            "name": {
+              "type": "string",
+              "maxLength": 80
+            },
+            "line": {
+              "type": "string",
+              "maxLength": 120
+            }
+          }
+        }
+      }
+    },
+    "clock": {
+      "enum": [
+        "moon"
+      ],
+      "default": "moon"
+    },
+    "packs": {
+      "type": "object",
+      "required": [
+        "steps",
+        "templates",
+        "style"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "map": {
+          "$ref": "urn:island:0.1:common#/$defs/packRef"
+        },
+        "lives": {
+          "$ref": "urn:island:0.1:common#/$defs/packRef"
+        },
+        "sound": {
+          "$ref": "urn:island:0.1:common#/$defs/packRef"
+        },
+        "steps": {
+          "description": "The first is the default",
+          "oneOf": [
+            {
+              "$ref": "urn:island:0.1:common#/$defs/packRef"
+            },
+            {
+              "type": "array",
+              "minItems": 1,
+              "items": {
+                "$ref": "urn:island:0.1:common#/$defs/packRef"
+              }
+            }
+          ]
+        },
+        "templates": {
+          "$ref": "urn:island:0.1:common#/$defs/packRef"
+        },
+        "style": {
+          "description": "The first is the default",
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "urn:island:0.1:common#/$defs/packRef"
+          }
+        },
+        "story": {
+          "description": "Story boxes: finished games on the shelf",
+          "type": "array",
+          "items": {
+            "$ref": "urn:island:0.1:common#/$defs/packRef"
+          }
+        },
+        "board": {
+          "$ref": "urn:island:0.1:common#/$defs/packRef"
+        }
       }
     },
     "printers": {
-      "type": "array", "minItems": 1,
+      "type": "array",
+      "minItems": 1,
       "items": {
-        "type": "object", "required": ["id", "name", "paper", "dpi", "dots"], "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "id",
+          "name",
+          "paper",
+          "dpi",
+          "dots"
+        ],
+        "additionalProperties": false,
         "properties": {
-          "id": { "$ref": "urn:island:0.1:common#/$defs/id" },
-          "name": { "type": "string", "maxLength": 60 },
-          "model": { "type": "string", "maxLength": 40 },
-          "paper": { "enum": [58, 80] },
-          "dpi": { "type": "integer", "minimum": 100, "maximum": 400 },
-          "dots": { "description": "Printable dots across", "type": "integer", "minimum": 160, "maximum": 1024 },
-          "at": { "$ref": "urn:island:0.1:common#/$defs/latlng" },
-          "approval": { "enum": ["required", "auto"], "default": "required" },
-          "mesh": { "type": "boolean", "default": false },
-          "home": { "description": "true for the island's own printer, first in every list", "type": "boolean" }
+          "id": {
+            "$ref": "urn:island:0.1:common#/$defs/id"
+          },
+          "name": {
+            "type": "string",
+            "maxLength": 60
+          },
+          "model": {
+            "type": "string",
+            "maxLength": 40
+          },
+          "paper": {
+            "enum": [
+              58,
+              80
+            ]
+          },
+          "dpi": {
+            "type": "integer",
+            "minimum": 100,
+            "maximum": 400
+          },
+          "dots": {
+            "description": "Printable dots across",
+            "type": "integer",
+            "minimum": 160,
+            "maximum": 1024
+          },
+          "at": {
+            "$ref": "urn:island:0.1:common#/$defs/latlng"
+          },
+          "approval": {
+            "enum": [
+              "required",
+              "auto"
+            ],
+            "default": "required"
+          },
+          "mesh": {
+            "type": "boolean",
+            "default": false
+          },
+          "home": {
+            "description": "true for the island's own printer, first in every list",
+            "type": "boolean"
+          },
+          "protocol": {
+            "description": "How it is spoken to: ESC/POS (Epson and most others) or Star",
+            "enum": [
+              "escpos",
+              "star"
+            ],
+            "default": "escpos"
+          }
         }
       }
     },
     "access": {
-      "type": "object", "required": ["print"], "additionalProperties": false,
+      "type": "object",
+      "required": [
+        "print"
+      ],
+      "additionalProperties": false,
       "properties": {
-        "print": { "description": "anyone on the island; whoever has the code; or every piece waits for the keeper", "enum": ["anyone", "code", "approved"] },
-        "show": { "description": "What others see of a piece: nothing until approved, or at once", "enum": ["approved", "at-once"], "default": "approved" },
-        "keepWaiting": { "$ref": "urn:island:0.1:common#/$defs/duration" },
-        "keepPrinted": { "$ref": "urn:island:0.1:common#/$defs/duration" }
+        "print": {
+          "description": "anyone on the island; whoever has the code; or every piece waits for the keeper",
+          "enum": [
+            "anyone",
+            "code",
+            "approved"
+          ]
+        },
+        "show": {
+          "description": "What others see of a piece: nothing until approved, or at once",
+          "enum": [
+            "approved",
+            "at-once"
+          ],
+          "default": "approved"
+        },
+        "keepWaiting": {
+          "$ref": "urn:island:0.1:common#/$defs/duration"
+        },
+        "keepPrinted": {
+          "$ref": "urn:island:0.1:common#/$defs/duration"
+        }
       }
     },
     "network": {
-      "type": "object", "required": ["online"], "additionalProperties": false,
+      "type": "object",
+      "required": [
+        "online"
+      ],
+      "additionalProperties": false,
       "properties": {
-        "online": { "type": "boolean" },
-        "hosted": { "$ref": "urn:island:0.1:common#/$defs/url" },
-        "directory": { "description": "Listed on novel.global's directory of islands", "type": "boolean", "default": false },
-        "mesh": {
-          "type": "object", "additionalProperties": false,
-          "properties": { "channel": { "type": "string", "maxLength": 30 }, "line": { "const": "ng" } }
+        "online": {
+          "type": "boolean"
         },
-        "hosts": { "description": "Every outside host a live source may ask, and nothing else", "type": "array", "items": { "$ref": "urn:island:0.1:common#/$defs/host" } }
+        "hosted": {
+          "$ref": "urn:island:0.1:common#/$defs/url"
+        },
+        "directory": {
+          "description": "Listed on novel.global's directory of islands",
+          "type": "boolean",
+          "default": false
+        },
+        "mesh": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "channel": {
+              "type": "string",
+              "maxLength": 30
+            },
+            "line": {
+              "const": "ng"
+            }
+          }
+        },
+        "hosts": {
+          "description": "Every outside host a live source may ask, and nothing else",
+          "type": "array",
+          "items": {
+            "$ref": "urn:island:0.1:common#/$defs/host"
+          }
+        }
       }
     },
     "codes": {
-      "type": "object", "additionalProperties": false,
+      "type": "object",
+      "additionalProperties": false,
       "properties": {
-        "prefix": { "type": "string", "pattern": "^[A-Z]{2,4}$" },
-        "showcase": { "type": "string", "pattern": "^[0-9]{3}$" }
+        "prefix": {
+          "type": "string",
+          "pattern": "^[A-Z]{2,4}$"
+        },
+        "showcase": {
+          "type": "string",
+          "pattern": "^[0-9]{3}$"
+        }
       }
     },
     "client": {
-      "type": "object", "additionalProperties": false,
+      "type": "object",
+      "additionalProperties": false,
       "properties": {
-        "shell": { "description": "The client's look and motion: code, installed by the keeper, never in a pack", "type": "string", "pattern": "^[a-z0-9-]+$", "default": "plain" },
-        "start": { "description": "The step the screen opens on", "$ref": "urn:island:0.1:common#/$defs/id" },
-        "studio": { "description": "A path on the island for a fuller studio, if it has one", "type": "string", "pattern": "^/[a-z0-9/-]*$" }
+        "shell": {
+          "description": "The client's look and motion: code, installed by the keeper, never in a pack",
+          "type": "string",
+          "pattern": "^[a-z0-9-]+$",
+          "default": "plain"
+        },
+        "start": {
+          "description": "The step the screen opens on",
+          "$ref": "urn:island:0.1:common#/$defs/id"
+        },
+        "studio": {
+          "description": "A path on the island for a fuller studio, if it has one",
+          "type": "string",
+          "pattern": "^/[a-z0-9/-]*$"
+        }
       }
     }
   }

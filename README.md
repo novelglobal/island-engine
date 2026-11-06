@@ -10,9 +10,9 @@ This repository holds the format that describes an island, and later the engine 
 
 | Path | What it is |
 |---|---|
-| [spec/](spec/README.md) | The island format: the manifest and the six kinds of pack, in plain words |
+| [spec/](spec/README.md) | The island format: the manifest and the eight kinds of pack, in plain words |
 | [schemas/](schemas/) | The same format as JSON Schemas, which a builder or an engine checks every file against |
-| [islands/novel-global/](islands/novel-global/island.json) | novel.global described as an island: the proof that the format can hold a whole site |
+| [islands/novel-global/](islands/novel-global/island.json) | novel.global described as an island: the proof that the format can hold a whole site. With its five games, the first story box (the riparian drain) and the farm |
 | [islands/stickers/](islands/stickers/island.json) | A second, tiny island: photo stickers in one step, offline |
 | [docs/extraction.md](docs/extraction.md) | How the engine comes out of novel.global's repository, stage by stage |
 | [docs/runtimes.md](docs/runtimes.md) | One engine, two homes: Cloudflare, and a Raspberry Pi with 512 MB |
