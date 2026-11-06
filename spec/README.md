@@ -155,10 +155,11 @@ A story box is a journey already played: a `title`, a `cover` (drawn, or made fr
 
 ### board: the ground progress grows on
 
-- **`ground`**: a real piece of land picked from the map's imagery each visit (`satellite`, with `pick`: the land use, the area, its size), or a file. It is redrawn in flat `tones` of even opacity, never a gradient, in `cells` pixels across, with paper `grain` and ragged `edge`s.
+- **`ground`**: a real piece of land picked from the map's imagery for each new farm (`satellite`, with `pick`: the land use, the area, its size), or a file. It is redrawn in flat `tones` of even opacity, never a gradient, in `cells` pixels across, with paper `grain` and ragged `edge`s.
+- **`farm`**: what is kept and by what. With `keep: "place"`, a farm is one real piece of ground and everything placed on it stays with it; a `reroll` deals new ground as a new, bare farm, and the old one keeps what it has.
 - **`balance`**: the share left to nature it grows towards (novel.global's is half).
 - **`first`**: optional, a wider map shown on a first visit (farmland and habitat).
-- **`stages`**: each one drawn in line and dot (`draw`: `as` a line, dots, an area, water, a ring or strokes, `on` a part of the ground found from the ground itself), unlocked `by` events (`step:<id>`, `story:<id>`, `poster`, `song`, `download`, `box`, `print`, `visit`, `moon`) once the stages `after` it are done. It names what flows on from it (`then`), the share it gives back to `nature`, and the real work it stands for (`src`).
+- **`stages`**: each one drawn in line and dot (`draw`: `as` a line, dots, an area, water, a ring or strokes, `on` a part of the ground found from the ground itself), unlocked `by` events (`step:<id>`, `story:<id>`, `poster`, `song`, `download`, `box`, `print`, `visit`, `moon`) once the stages `after` it are done. A stage is put down by the person where they choose (`place: "hand"`, snapping to the part of the ground it fits near where it is put), or by the engine (`self`). Once placed, its `acts` work on the ground around it, within its `reach`: water spreads or holds, banks thicken, grass grows, birds and frogs arrive. This is shown only as the ground changing, never as a stat, an icon or a word. It names what flows on from it (`then`), the share it gives back to `nature`, and the real work it stands for (`src`).
 
 ## What is not in a pack
 
