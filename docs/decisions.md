@@ -49,6 +49,7 @@ Suggested: **the 3 A+ as the floor, the 4 recommended for events.** The 3 A+ fit
 ### Also worth knowing
 
 - **The map an offline island shows has to be open.** The satellite picture novel.global uses now may be shown online with credit but can't be kept on a Pi. Offline islands will use OpenStreetMap, drawn in greys.
+- **An island's printers are always open to novel.global, one way** (your rule, 6 November). Even with a site of its own, an island lets novel.global publish to and print on its printers. Its own site prints only to its own printers. The checker refuses an island that leaves novel.global out.
 - **Each printer has its own size.** The TM-T88V lays 512 dots across 80 mm paper. The brief's 576 belongs to other printers, and the format keeps both.
 
 ## What happens next
