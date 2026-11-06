@@ -214,7 +214,8 @@
             "default": "escpos"
           }
         }
-      }
+      },
+      "description": "This island's own printers, and only these: a site prints to nothing else"
     },
     "access": {
       "type": "object",
@@ -284,8 +285,40 @@
           "items": {
             "$ref": "urn:island:0.1:common#/$defs/host"
           }
+        },
+        "hub": {
+          "description": "One way, always: novel.global may publish to and print on every printer and mesh node of this island, whenever it can reach it. The island's own site prints only to its own printers, and never reaches novel.global's devices or another island's. Required on any island with a way in (online, or a mesh)",
+          "const": "https://novel.global"
         }
-      }
+      },
+      "allOf": [
+        {
+          "if": {
+            "anyOf": [
+              {
+                "properties": {
+                  "online": {
+                    "const": true
+                  }
+                },
+                "required": [
+                  "online"
+                ]
+              },
+              {
+                "required": [
+                  "mesh"
+                ]
+              }
+            ]
+          },
+          "then": {
+            "required": [
+              "hub"
+            ]
+          }
+        }
+      ]
     },
     "codes": {
       "type": "object",

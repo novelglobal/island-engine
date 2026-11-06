@@ -103,6 +103,7 @@
   "network": {
     "online": true,
     "hosted": "https://novel.global",
+    "hub": "https://novel.global",
     "directory": true,
     "mesh": {
       "channel": "LongFast",

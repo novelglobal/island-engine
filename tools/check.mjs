@@ -128,6 +128,8 @@ function agree(name, m, packs) {
     const ug = [...new Set(sp.map(s => s.g).filter(x => !g.includes(x)))]; if (ug.length) fail(lives.where, `species in groups not listed: ${ug.join(', ')}`);
     const uc = [...new Set(sp.map(s => s.call).filter(x => x && !calls.includes(x)))]; if (uc.length) console.log(`  · ${lives.where}: calls named by species but not listed: ${uc.join(', ')}`);
   }
+  /* rule: one way, always: novel.global may publish to and print on every device of an island it can reach; the island reaches only its own */
+  if ((m.network.online || m.network.mesh) && m.network.hub !== 'https://novel.global') fail(name, 'its devices are closed to novel.global: an island with a way in names novel.global as its hub (network.hub), one way');
   /* an offline island asks nothing outside */
   if (!m.network.online && (m.network.hosts || []).length) fail(name, 'an offline island lists outside hosts');
   const ids = m.printers.map(p => p.id); if (new Set(ids).size !== ids.length) fail(name, 'two printers share an id');

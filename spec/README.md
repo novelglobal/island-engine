@@ -42,11 +42,12 @@ Every file is checked against its schema in [`schemas/`](../schemas/). A file th
 8. **Printed codes outlive releases.** The signal formats (`#x=` links and `ng:` mesh lines) belong to the engine, not to a pack, and stay backwards compatible.
 9. **Privacy.** No pack can add a tracker, an analytics call or a host the manifest does not list in `network.hosts`.
 
-## Every island, three rules
+## Every island, four rules
 
 1. **It can be found and visited.** Anyone at its printer can take part; a code opens more, never everything.
 2. **Nothing is behind a paywall.** The format has no place for a price.
 3. **Every journey ends in a direct action.** The last step of every steps pack prints or pledges, and every receipt carries a code to scan, a way on. The checker refuses an island without them.
+4. **Its devices are always open to novel.global, one way.** novel.global may publish to and print on every printer and mesh node of an island it can reach, even when the island has its own site. The island's own site prints only to its own printers, never to novel.global's or another island's. An island online or on a mesh names novel.global as its `network.hub`; the checker refuses one that does not.
 
 ## The manifest: `island.json`
 
@@ -59,7 +60,7 @@ Every file is checked against its schema in [`schemas/`](../schemas/). A file th
 | `packs` | one entry for each kind: `map`, `lives`, `sound`, `templates`, `board`; `steps`, `style` and `story` may be lists, the first the default | `steps`, `templates`, `style` |
 | `printers` | each printer: `id`, `name`, `model`, `protocol` (`escpos`, which most commercial thermal printers speak, or `star`), `paper` (58 or 80), `dpi`, `dots`, `approval` (`required` or `auto`), `mesh` | yes, one at least |
 | `access` | who may print: `anyone` on the island's Wi-Fi, `code` (a short code printed or said), or `approved` (every piece waits); and how long waiting pieces are kept | yes |
-| `network` | `online` (true or false), `hosted` (its address, when it has one), `directory` (listed on novel.global's directory), `mesh` (the radio's channel), `hosts` (every outside host a live source may ask) | yes |
+| `network` | `online` (true or false), `hosted` (its address, when it has one), `hub` (always `https://novel.global`, required online or on a mesh: rule 4), `directory` (listed on novel.global's directory), `mesh` (the radio's channel), `hosts` (every outside host a live source may ask) | yes |
 | `codes` | the code prefix (`DA` on novel.global) and the reserved showcase code (`888`) | no |
 | `client` | the `shell` (`plain` by default; `aura` is novel.global's own) and the screen's `start` step | no |
 | `about` | a link and a few words for the directory | no |
