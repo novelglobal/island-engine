@@ -104,7 +104,7 @@ function agree(name, m, packs) {
     const seen = new Set(), walk = (id, path) => { if (path.includes(id)) { fail(board.where, `stage ${id} comes before itself`); return; } if (seen.has(id)) return; seen.add(id); const s = B.stages.find(x => x.id === id); for (const a of (s && s.after) || []) walk(a, [...path, id]); };
     for (const s of B.stages) walk(s.id, []);
     const tones = B.ground.tones.map(t => t.id);
-    for (const s of B.stages) for (const d of s.draw) if (d.tone && !tones.includes(d.tone)) fail(board.where, `stage ${s.id}: no tone ${d.tone}`);
+    for (const s of B.stages) for (const d of [...s.draw, ...(s.acts || [])]) if (d.tone && !tones.includes(d.tone)) fail(board.where, `stage ${s.id}: no tone ${d.tone}`);
     for (const s of B.stages) for (const e of s.by || []) { const [k, v] = e.split(':'); if (k === 'step' && !stepIds.includes(v)) fail(board.where, `stage ${s.id}: no step ${v}`); }
     const half = (B.balance ? B.balance.start || 0 : 0) + B.stages.reduce((n, s) => n + (s.nature || 0), 0);
     if (B.balance && Math.abs(half - B.balance.target) > 0.001) console.log(`  · ${board.where}: the stages give nature ${half.toFixed(2)}, the target is ${B.balance.target}`);
