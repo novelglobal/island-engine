@@ -169,17 +169,12 @@
     },
     {
       "id": "game-i",
-      "name": "I",
+      "name": "catch",
       "paper": [
         80,
         58
       ],
       "blocks": [
-        {
-          "type": "heading",
-          "from": "'I'",
-          "size": "head"
-        },
         {
           "type": "data",
           "from": "i-catch.things",
@@ -210,17 +205,12 @@
     },
     {
       "id": "game-w",
-      "name": "W",
+      "name": "draw",
       "paper": [
         80,
         58
       ],
       "blocks": [
-        {
-          "type": "heading",
-          "from": "'W'",
-          "size": "head"
-        },
         {
           "type": "text",
           "from": "w-draw.fact",
@@ -250,17 +240,12 @@
     },
     {
       "id": "game-great",
-      "name": "I",
+      "name": "dial",
       "paper": [
         80,
         58
       ],
       "blocks": [
-        {
-          "type": "heading",
-          "from": "'I'",
-          "size": "head"
-        },
         {
           "type": "art",
           "from": "i-dial.future",
@@ -286,17 +271,12 @@
     },
     {
       "id": "game-s",
-      "name": "S",
+      "name": "craft",
       "paper": [
         80,
         58
       ],
       "blocks": [
-        {
-          "type": "heading",
-          "from": "'S'",
-          "size": "head"
-        },
         {
           "type": "art",
           "from": "s-craft.cover",
@@ -328,17 +308,12 @@
     },
     {
       "id": "game-h",
-      "name": "H",
+      "name": "strings",
       "paper": [
         80,
         58
       ],
       "blocks": [
-        {
-          "type": "heading",
-          "from": "'H'",
-          "size": "head"
-        },
         {
           "type": "text",
           "from": "i-catch.intention",
